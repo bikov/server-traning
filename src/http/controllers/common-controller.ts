@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Context } from 'koa';
 
-const {setResult} = require('../helpers/koa-helper');
+const {setResult} = require('../../helpers/koa-helper');
 
 export const healthController = async (ctx: Context) => {
     setResult(ctx, 200, 'OK');

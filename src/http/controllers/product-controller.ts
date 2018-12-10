@@ -2,10 +2,10 @@ import { Context } from 'koa';
 import * as HttpStatus from 'http-status-codes';
 import * as Joi from 'joi';
 
-import * as productsFacade from '../dal/repositories/products-repository';
-import { validate } from '../helpers/validator';
-import { setResult } from '../helpers/koa-helper';
-import logger from '../helpers/logger';
+import * as productsFacade from '../../dal/repositories/products-repository';
+import { validate } from '../../helpers/validator';
+import { setResult } from '../../helpers/koa-helper';
+import logger from '../../helpers/logger';
 
 export const getProducts = async (ctx: Context) => {
     try {

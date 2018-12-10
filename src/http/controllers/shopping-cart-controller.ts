@@ -2,10 +2,10 @@ import * as Joi from 'joi';
 import { Context } from 'koa';
 import * as HttpStatus from 'http-status-codes';
 
-import logger from '../helpers/logger';
-import { validateArr } from '../helpers/validator';
-import { setResult } from '../helpers/koa-helper';
-import * as productsFacade from '../dal/repositories/products-repository';
+import logger from '../../helpers/logger';
+import { validateArr } from '../../helpers/validator';
+import { setResult } from '../../helpers/koa-helper';
+import * as productsFacade from '../../dal/repositories/products-repository';
 
 const processShopSchema = Joi.object().keys({
     id: Joi.string().required(),

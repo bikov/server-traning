@@ -3,9 +3,9 @@
 /**
  * Module dependencies.
  */
-import { app } from '../index';
-import * as http from 'http';
+
 import logger from '../helpers/logger';
+import { setUpServers } from '../index';
 
 /**
  * Get port from environment and store in Express.
@@ -14,16 +14,11 @@ import logger from '../helpers/logger';
 const port = normalizePort(8080);
 // app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-
-const server = http.createServer(app.callback());
+const server = setUpServers();
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
