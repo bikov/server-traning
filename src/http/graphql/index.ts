@@ -1,22 +1,24 @@
 import Application = require('koa');
-import { ApolloServer, gql } from 'apollo-server-koa';
+import { ApolloServer } from 'apollo-server-koa';
+import { Server as HttpServer } from 'http';
 
-export const setUpGraphql = (app: Application) => {
-    // Construct a schema, using GraphQL schema language
-    const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
+import { schemas } from './schemas';
+import { resolvers } from './resolvers';
+import logger from '../../helpers/logger';
 
-    // Provide resolver functions for your schema fields
-    const resolvers = {
-        Query: {
-            hello: () => 'Hello world!',
+export const setUpGraphql = (app: Application, server: HttpServer) => {
+
+    const aplloServer = new ApolloServer({
+        typeDefs: schemas,
+        resolvers,
+        formatError: (error) => {
+            logger.error('GraphQl server error: ', error);
+            return new Error('Internal server error');
         },
-    };
+    });
 
-    const server = new ApolloServer({typeDefs, resolvers});
-
-    server.applyMiddleware({app});
+    aplloServer.applyMiddleware({app});
+    aplloServer.installSubscriptionHandlers(server);
 };
+
+

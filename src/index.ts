@@ -21,7 +21,7 @@ export const setUpServers = () => {
      */
     const io = socket(server);
 
-    setUpHttpServer(app);
+    setUpHttpServer(app, server);
     setUpWSServer(io);
 
     return server;

@@ -11,7 +11,7 @@ import { setUpServers } from '../index';
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(8080);
+const port = normalizePort(process.env.PORT);
 // app.set('port', port);
 
 const server = setUpServers();

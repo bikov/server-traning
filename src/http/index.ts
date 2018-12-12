@@ -8,8 +8,9 @@ import { setRouters } from './routes';
 import { connectAll } from '../dal/connection';
 import { errorHandlerMiddleware, loggerMiddleware } from '../helpers/middlewares';
 import { setUpGraphql } from './graphql';
+import { Server as HttpServer } from "http";
 
-export const setUpHttpServer = (app: Application) => {
+export const setUpHttpServer = (app: Application, server: HttpServer) => {
     app.use(errorHandlerMiddleware);
 
     app.use(bodyparser({
@@ -47,6 +48,6 @@ export const setUpHttpServer = (app: Application) => {
     setRouters(loggedRouter);
     app.use(loggedRouter.allowedMethods()).use(loggedRouter.routes());
 
-    setUpGraphql(app);
+    setUpGraphql(app, server);
 
 };
