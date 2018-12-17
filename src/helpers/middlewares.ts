@@ -1,7 +1,7 @@
-import logger from './logger';
+import { Context } from 'koa';
 import ApiError from './api-error';
 import { setResult } from './koa-helper';
-import { Context } from 'koa';
+import logger from './logger';
 
 export const errorHandlerMiddleware = async (ctx: Context, next) => {
     try {
@@ -11,10 +11,18 @@ export const errorHandlerMiddleware = async (ctx: Context, next) => {
             logger.warn('sending error to client', err);
             setResult(ctx, err.status, err.message);
         } else {
-            logger.error(`uncaught error in middleware, method: '${ctx.method}', url: '${ctx.url}',\n
-             params: '${JSON.stringify(ctx.params)}', body: '${JSON.stringify(ctx.request && ctx.request.body)}', query: '${JSON.stringify(ctx.request && ctx.request.query)}'`, err);
+            logger.error(
+                `uncaught error in middleware, method: '${ctx.method}', url: '${ctx.url}',\n
+             params: '${JSON.stringify(ctx.params)}', body: '${JSON.stringify(
+                    ctx.request && ctx.request.body,
+                )}', query: '${JSON.stringify(ctx.request && ctx.request.query)}'`,
+                err,
+            );
             ctx.status = 500;
-            ctx.body = process.env.NODE_ENV === 'develop' ? err.message : 'Internal server error, please connect us to support';
+            ctx.body =
+                process.env.NODE_ENV === 'develop'
+                    ? err.message
+                    : 'Internal server error, please connect us to support';
         }
     }
 };

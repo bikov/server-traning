@@ -28,16 +28,16 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val: any) {
-    const port = parseInt(val, 10);
+    const intPort = parseInt(val, 10);
 
-    if (isNaN(port)) {
+    if (isNaN(intPort)) {
         // named pipe
         return val;
     }
 
-    if (port >= 0) {
+    if (intPort >= 0) {
         // port number
-        return port;
+        return intPort;
     }
 
     return false;
@@ -47,14 +47,12 @@ function normalizePort(val: any) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error: { syscall?: string, code?: string }) {
+function onError(error: { syscall?: string; code?: string }) {
     if (error.syscall !== 'listen') {
         throw error;
     }
 
-    const bind = typeof port === 'string'
-                 ? 'Pipe ' + port
-                 : 'Port ' + port;
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -77,8 +75,6 @@ function onError(error: { syscall?: string, code?: string }) {
 
 function onListening() {
     const addr = server.address();
-    const bind = typeof addr === 'string'
-                 ? 'pipe ' + addr
-                 : 'port ' + addr.port;
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
     logger.info(`listening on: ${bind}`);
 }

@@ -12,13 +12,13 @@ export interface IProduct extends Document {
 export const ProductSchema: Schema = new Schema({
     createdAt: Date,
     name: String,
-    description: {type: String, required: false},
+    description: { type: String, required: false },
     price: Number,
     imageName: String,
     amount: Number,
 });
 
-ProductSchema.pre('save', function (this: IProduct, next) {
+ProductSchema.pre('save', function(this: IProduct, next) {
     const now = new Date();
     if (!this.createdAt) {
         this.createdAt = now;

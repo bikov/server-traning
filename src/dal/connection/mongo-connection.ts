@@ -3,13 +3,13 @@ import logger from '../../helpers/logger';
 
 mongoose.set('debug', true);
 
-//flag for auto connect on disconnect
+// flag for auto connect on disconnect
 let wantToDisconnect = false;
 
 // flag for subscribe to connection event only one time
 let isSubscribed = false;
 
-//connection string to reconnect
+// connection string to reconnect
 let conString;
 
 export async function initConnection(connectionString) {
@@ -17,14 +17,13 @@ export async function initConnection(connectionString) {
     wantToDisconnect = false;
     await subscribeToEvents(mongoose.connection);
     await connect(connectionString);
-
 }
 
 export async function closeConnection() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         wantToDisconnect = true;
         mongoose.connection.close(true, () => {
-            console.log('Mongoose connection closed');
+            logger.error('Mongoose connection closed');
             resolve();
         });
     });
@@ -32,22 +31,22 @@ export async function closeConnection() {
 
 async function subscribeToEvents(db) {
     if (!isSubscribed) {
-        db.on('connecting', function () {
+        db.on('connecting', () => {
             logger.info('connecting to MongoDB...');
         });
-        db.on('error', async function (error) {
+        db.on('error', async error => {
             logger.error(`Error in MongoDb connection: '${error}'`);
         });
-        db.on('connected', function () {
+        db.on('connected', () => {
             logger.info('MongoDB connected!');
         });
-        db.on('open', function () {
+        db.on('open', () => {
             logger.info('MongoDB connection opened!');
         });
-        db.on('reconnected', function () {
+        db.on('reconnected', () => {
             logger.warn('MongoDB reconnected!');
         });
-        db.on('disconnected', async function () {
+        db.on('disconnected', async () => {
             if (!wantToDisconnect) {
                 logger.error('MongoDB disconnected!');
                 await connect(conString);

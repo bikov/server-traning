@@ -3,8 +3,6 @@ const {Transform} = require('stream');
 const path = require('path');
 const server = require('http').createServer();
 
-const blbat = require('./test2')
-
 const upperCaseTr = new Transform({
     transform(chunk, encoding, callback) {
         this.push(chunk.toString().toUpperCase());

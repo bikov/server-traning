@@ -1,14 +1,13 @@
-import { IProduct } from '../models/product';
 
 export default class ProductDto {
-    id: string;
-    name: string;
-    description?: string;
-    price: number;
-    imageName: string;
-    amount: number;
+    public id: string;
+    public name: string;
+    public description?: string;
+    public price: number;
+    public imageName: string;
+    public amount: number;
 
-    constructor({_id, name, description, price, imageName, amount}) {
+    constructor({ _id, name, description, price, imageName, amount }) {
         this.id = _id;
         this.name = name;
         this.description = description;

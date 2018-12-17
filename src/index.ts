@@ -1,9 +1,9 @@
 import Koa from 'koa';
 
 import { config } from 'dotenv';
-import { setUpHttpServer } from './http';
 import * as http from 'http';
 import socket from 'socket.io';
+import { setUpHttpServer } from './http';
 import { setUpWSServer } from './web-socket';
 
 config();
