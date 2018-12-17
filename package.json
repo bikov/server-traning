@@ -10,8 +10,8 @@
     "start": "nodemon ./dist/server.js",
     "prod": "npm run build && npm run start",
     "test": "jest",
-    "lint": "tslint-check && tslint -p .",
-    "lint:fix": "tslint-check && tslint -p . --fix",
+    "lint": "npm run tslint-check && tslint -p .",
+    "lint:fix": "npm run tslint-check && tslint -p . --fix",
     "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "author": "BiKoV",

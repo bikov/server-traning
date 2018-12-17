@@ -1,4 +1,3 @@
-
 export default class ProductDto {
     public id: string;
     public name: string;
